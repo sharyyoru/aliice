@@ -2,8 +2,6 @@ import { sql } from "@vercel/postgres";
 import { Resend } from "resend";
 import { NextResponse } from "next/server";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 export async function POST(request: Request) {
   try {
     const body = await request.json();
@@ -40,8 +38,9 @@ export async function POST(request: Request) {
 
     // Send notification email
     if (process.env.RESEND_API_KEY) {
+      const resend = new Resend(process.env.RESEND_API_KEY);
       await resend.emails.send({
-        from: "Aliice <noreply@aliice.space>",
+        from: "Aliice <onboarding@resend.dev>",
         to: "wilson@mutant.ae",
         subject: `New Demo Request from ${firstName} ${lastName}`,
         html: `
