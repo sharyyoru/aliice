@@ -1,4 +1,4 @@
-import { sql } from "@vercel/postgres";
+import { createClient } from "@supabase/supabase-js";
 import { Resend } from "resend";
 import { NextResponse } from "next/server";
 
@@ -15,26 +15,30 @@ export async function POST(request: Request) {
       );
     }
 
-    // Create table if not exists
-    await sql`
-      CREATE TABLE IF NOT EXISTS registrations (
-        id SERIAL PRIMARY KEY,
-        first_name VARCHAR(255) NOT NULL,
-        last_name VARCHAR(255) NOT NULL,
-        email VARCHAR(255) NOT NULL,
-        phone VARCHAR(50),
-        clinic_name VARCHAR(255) NOT NULL,
-        clinic_size VARCHAR(50),
-        message TEXT,
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-      )
-    `;
+    // Create Supabase client
+    const supabase = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.SUPABASE_SERVICE_ROLE_KEY!
+    );
 
-    // Insert registration
-    await sql`
-      INSERT INTO registrations (first_name, last_name, email, phone, clinic_name, clinic_size, message)
-      VALUES (${firstName}, ${lastName}, ${email}, ${phone || null}, ${clinicName}, ${clinicSize || null}, ${message || null})
-    `;
+    // Insert registration into Supabase
+    const { error: dbError } = await supabase.from("registrations").insert({
+      first_name: firstName,
+      last_name: lastName,
+      email,
+      phone: phone || null,
+      clinic_name: clinicName,
+      clinic_size: clinicSize || null,
+      message: message || null,
+    });
+
+    if (dbError) {
+      console.error("Database error:", dbError);
+      return NextResponse.json(
+        { error: "Failed to save registration" },
+        { status: 500 }
+      );
+    }
 
     // Send notification email
     if (process.env.RESEND_API_KEY) {
