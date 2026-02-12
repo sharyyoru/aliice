@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-slate-50 text-slate-900;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-aliice-600 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-aliice-600/25 transition-all duration-300 hover:bg-aliice-700 hover:shadow-xl hover:shadow-aliice-600/30 focus:outline-none focus:ring-2 focus:ring-aliice-500 focus:ring-offset-2;
+  }
+  
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-slate-200 bg-white px-6 py-3 text-sm font-semibold text-slate-700 shadow-sm transition-all duration-300 hover:bg-slate-50 hover:border-slate-300 focus:outline-none focus:ring-2 focus:ring-aliice-500 focus:ring-offset-2;
+  }
+  
+  .section-heading {
+    @apply text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl;
+  }
+  
+  .section-subheading {
+    @apply mt-4 text-lg text-slate-600 max-w-2xl;
+  }
+  
+  .card {
+    @apply rounded-2xl border border-slate-200/80 bg-white/90 p-6 shadow-lg shadow-slate-200/50 backdrop-blur-sm transition-all duration-300 hover:shadow-xl hover:border-slate-300/80;
+  }
+  
+  .gradient-text {
+    @apply bg-gradient-to-r from-aliice-600 to-emerald-500 bg-clip-text text-transparent;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
