@@ -3,10 +3,9 @@
 import { useState, useMemo } from "react";
 import Image from "next/image";
 import { 
-  Users, Database, Zap, Building2, Calendar, FileText, 
-  BarChart3, MessageSquare, Mail, Workflow, Target, 
-  CheckCircle, TrendingUp, DollarSign, HardDrive,
-  Bot, Stethoscope, CreditCard, Settings, Rocket
+  Users, Zap, Building2, 
+  CheckCircle, TrendingUp, HardDrive,
+  Rocket, Stethoscope, Target, PieChart, ArrowRight
 } from "lucide-react";
 
 // Team & Operating Costs
@@ -155,6 +154,67 @@ export default function PricingPage() {
       </header>
 
       <main className="max-w-7xl mx-auto px-6 py-12 space-y-16">
+        {/* Executive Summary for Investors */}
+        <section className="text-center">
+          <div className="inline-block px-4 py-2 bg-emerald-500/20 rounded-full text-emerald-400 text-sm font-medium mb-6">
+            INVESTOR OVERVIEW
+          </div>
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+            All-in-One Clinic Management Platform
+          </h2>
+          <p className="text-xl text-slate-300 max-w-3xl mx-auto mb-12">
+            Aliice replaces 3 expensive tools (CRM + ERP + Booking) with one unified platform, 
+            saving clinics <span className="text-emerald-400 font-semibold">49% on software costs</span> while 
+            providing superior functionality.
+          </p>
+
+          {/* Key Metrics Cards */}
+          <div className="grid md:grid-cols-4 gap-6 mb-12">
+            <div className="bg-gradient-to-br from-emerald-500/20 to-emerald-600/10 rounded-2xl p-6 border border-emerald-500/30">
+              <Target className="w-8 h-8 text-emerald-400 mx-auto mb-3" />
+              <p className="text-3xl font-bold text-white">$2,240</p>
+              <p className="text-slate-400 text-sm">Monthly Subscription</p>
+            </div>
+            <div className="bg-gradient-to-br from-blue-500/20 to-blue-600/10 rounded-2xl p-6 border border-blue-500/30">
+              <PieChart className="w-8 h-8 text-blue-400 mx-auto mb-3" />
+              <p className="text-3xl font-bold text-white">49%</p>
+              <p className="text-slate-400 text-sm">Cheaper Than Competitors</p>
+            </div>
+            <div className="bg-gradient-to-br from-purple-500/20 to-purple-600/10 rounded-2xl p-6 border border-purple-500/30">
+              <Users className="w-8 h-8 text-purple-400 mx-auto mb-3" />
+              <p className="text-3xl font-bold text-white">$8,515</p>
+              <p className="text-slate-400 text-sm">Monthly Operating Cost</p>
+            </div>
+            <div className="bg-gradient-to-br from-amber-500/20 to-amber-600/10 rounded-2xl p-6 border border-amber-500/30">
+              <TrendingUp className="w-8 h-8 text-amber-400 mx-auto mb-3" />
+              <p className="text-3xl font-bold text-white">4 Clients</p>
+              <p className="text-slate-400 text-sm">Break-Even Point</p>
+            </div>
+          </div>
+
+          {/* Simple Value Proposition */}
+          <div className="bg-slate-800/50 rounded-2xl p-8 border border-slate-700/50 max-w-4xl mx-auto">
+            <h3 className="text-2xl font-bold text-white mb-6">The Business Model</h3>
+            <div className="grid md:grid-cols-3 gap-8 text-left">
+              <div>
+                <div className="text-4xl mb-3">💰</div>
+                <h4 className="text-lg font-semibold text-white mb-2">Revenue</h4>
+                <p className="text-slate-400">$2,240/month per clinic subscription + $50/TB extra storage + $3,500 one-time onboarding</p>
+              </div>
+              <div>
+                <div className="text-4xl mb-3">📊</div>
+                <h4 className="text-lg font-semibold text-white mb-2">Costs</h4>
+                <p className="text-slate-400">$8,515/month fixed (3 developers + infrastructure). Scales efficiently with growth.</p>
+              </div>
+              <div>
+                <div className="text-4xl mb-3">🚀</div>
+                <h4 className="text-lg font-semibold text-white mb-2">Scalability</h4>
+                <p className="text-slate-400">Each new client adds $2,240 revenue with minimal marginal cost increase.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Section 1: Team & Operating Costs */}
         <section>
           <div className="text-center mb-10">
@@ -540,19 +600,94 @@ export default function PricingPage() {
           </div>
         </section>
 
+        {/* Growth Projections for Investors */}
+        <section>
+          <div className="text-center mb-10">
+            <h2 className="text-3xl font-bold text-white mb-3">Growth Projections</h2>
+            <p className="text-slate-400">Revenue scaling with client acquisition</p>
+          </div>
+
+          <div className="bg-slate-800/50 rounded-2xl border border-slate-700/50 overflow-hidden">
+            <table className="w-full">
+              <thead className="bg-slate-700/50">
+                <tr>
+                  <th className="text-left px-6 py-4 text-slate-300 font-semibold">Clients</th>
+                  <th className="text-center px-6 py-4 text-slate-300 font-semibold">Monthly Revenue</th>
+                  <th className="text-center px-6 py-4 text-slate-300 font-semibold">Monthly Costs</th>
+                  <th className="text-center px-6 py-4 text-slate-300 font-semibold">Net Profit</th>
+                  <th className="text-center px-6 py-4 text-slate-300 font-semibold">Annual Profit</th>
+                  <th className="text-center px-6 py-4 text-slate-300 font-semibold">Margin</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-700/50">
+                {[3, 6, 10, 15, 25, 50].map((clients) => {
+                  const revenue = clients * 2240;
+                  const scalingCost = clients > 6 ? (clients - 6) * 405 : 0;
+                  const totalCost = 8515 + scalingCost;
+                  const profit = revenue - totalCost;
+                  const margin = ((profit / revenue) * 100).toFixed(0);
+                  const isBreakEven = profit >= 0;
+                  return (
+                    <tr key={clients} className={`${isBreakEven ? "" : "bg-red-500/10"}`}>
+                      <td className="px-6 py-4 text-white font-medium">{clients} clinics</td>
+                      <td className="text-center px-6 py-4 text-emerald-400 font-semibold">${revenue.toLocaleString()}</td>
+                      <td className="text-center px-6 py-4 text-red-400">${totalCost.toLocaleString()}</td>
+                      <td className={`text-center px-6 py-4 font-bold ${isBreakEven ? "text-emerald-400" : "text-red-400"}`}>
+                        ${profit.toLocaleString()}
+                      </td>
+                      <td className={`text-center px-6 py-4 ${isBreakEven ? "text-emerald-400" : "text-red-400"}`}>
+                        ${(profit * 12).toLocaleString()}
+                      </td>
+                      <td className={`text-center px-6 py-4 font-semibold ${isBreakEven ? "text-blue-400" : "text-red-400"}`}>
+                        {isBreakEven ? `${margin}%` : "—"}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+
+          <div className="mt-8 grid md:grid-cols-3 gap-6">
+            <div className="bg-emerald-500/10 rounded-xl p-6 border border-emerald-500/30 text-center">
+              <p className="text-slate-400 mb-2">With 10 Clients</p>
+              <p className="text-3xl font-bold text-emerald-400">$13,850/mo</p>
+              <p className="text-sm text-slate-400">Net Profit</p>
+            </div>
+            <div className="bg-blue-500/10 rounded-xl p-6 border border-blue-500/30 text-center">
+              <p className="text-slate-400 mb-2">With 25 Clients</p>
+              <p className="text-3xl font-bold text-blue-400">$39,780/mo</p>
+              <p className="text-sm text-slate-400">Net Profit</p>
+            </div>
+            <div className="bg-purple-500/10 rounded-xl p-6 border border-purple-500/30 text-center">
+              <p className="text-slate-400 mb-2">With 50 Clients</p>
+              <p className="text-3xl font-bold text-purple-400">$85,685/mo</p>
+              <p className="text-sm text-slate-400">Net Profit</p>
+            </div>
+          </div>
+        </section>
+
         {/* Footer CTA */}
         <section className="text-center py-12">
-          <h2 className="text-3xl font-bold text-white mb-4">Ready to Transform Your Clinic?</h2>
+          <h2 className="text-3xl font-bold text-white mb-4">Interested in Aliice?</h2>
           <p className="text-slate-400 mb-8 max-w-2xl mx-auto">
-            Join clinics worldwide using Aliice to streamline operations, increase revenue, and provide better patient care.
+            Contact us to learn more about investment opportunities or to schedule a product demo.
           </p>
-          <a
-            href="/"
-            className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-semibold rounded-xl hover:from-emerald-600 hover:to-teal-600 transition-all"
-          >
-            Request a Demo
-            <TrendingUp className="w-5 h-5" />
-          </a>
+          <div className="flex flex-wrap justify-center gap-4">
+            <a
+              href="/"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-semibold rounded-xl hover:from-emerald-600 hover:to-teal-600 transition-all"
+            >
+              View Product Demo
+              <ArrowRight className="w-5 h-5" />
+            </a>
+            <a
+              href="mailto:wilson@mutant.ae"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-slate-700 text-white font-semibold rounded-xl hover:bg-slate-600 transition-all"
+            >
+              Contact Us
+            </a>
+          </div>
         </section>
       </main>
     </div>
