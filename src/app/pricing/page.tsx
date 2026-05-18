@@ -142,12 +142,10 @@ export default function PricingPage() {
       <header className="border-b border-slate-700/50 bg-slate-900/80 backdrop-blur-sm sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <Image
-            src="https://www.aliice.space/build/images/aliice-dark.png"
+            src="/logos/aliice-logo.png"
             alt="Aliice Logo"
             width={120}
             height={40}
-            className="brightness-0 invert"
-            unoptimized
           />
           <h1 className="text-xl font-bold text-white">Business Model & Pricing</h1>
         </div>
