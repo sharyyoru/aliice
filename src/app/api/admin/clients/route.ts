@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 
 // Funnel stages based on industry best practices (Pipedrive/HubSpot inspired)
-export const FUNNEL_STAGES = [
+const FUNNEL_STAGES = [
   { id: "lead", label: "Lead", color: "slate" },
   { id: "contacted", label: "Contacted", color: "blue" },
   { id: "demo_scheduled", label: "Demo Scheduled", color: "purple" },
@@ -11,7 +11,7 @@ export const FUNNEL_STAGES = [
   { id: "negotiation", label: "Negotiation", color: "orange" },
   { id: "closed_won", label: "Closed Won", color: "emerald" },
   { id: "closed_lost", label: "Closed Lost", color: "red" },
-] as const;
+];
 
 async function verifyAdmin() {
   const cookieStore = await cookies();
